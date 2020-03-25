@@ -21,7 +21,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/.idea/
+/example/.idea/
 /Projet poo.iml
 
 # Created by https://www.gitignore.io/api/java,macos,bluej,windows,eclipse,intellij
@@ -110,27 +110,27 @@ local.properties
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+example/.idea/**/workspace.xml
+example/.idea/**/tasks.xml
+example/.idea/**/usage.statistics.xml
+example/.idea/**/dictionaries
+example/.idea/**/shelf
 
 # Generated files
-.idea/**/contentModel.xml
+example/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
+example/.idea/**/dataSources/
+example/.idea/**/dataSources.ids
+example/.idea/**/dataSources.local.xml
+example/.idea/**/sqlDataSources.xml
+example/.idea/**/dynamic.xml
+example/.idea/**/uiDesigner.xml
+example/.idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+example/.idea/**/gradle.xml
+example/.idea/**/libraries
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -146,7 +146,7 @@ local.properties
 cmake-build-*/
 
 # Mongo Explorer plugin
-.idea/**/mongoSettings.xml
+example/.idea/**/mongoSettings.xml
 
 # File-based project format
 *.iws
@@ -161,7 +161,7 @@ out/
 atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-.idea/replstate.xml
+example/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -170,10 +170,10 @@ crashlytics-build.properties
 fabric.properties
 
 # Editor-based Rest Client
-.idea/httpRequests
+example/.idea/httpRequests
 
 # Android studio 3.1+ serialized cache file
-.idea/caches/build_file_checksums.ser
+example/.idea/caches/build_file_checksums.ser
 
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
@@ -184,14 +184,14 @@ fabric.properties
 # *.ipr
 
 # Sonarlint plugin
-.idea/**/sonarlint/
+example/.idea/**/sonarlint/
 
 # SonarQube Plugin
-.idea/**/sonarIssues.xml
+example/.idea/**/sonarIssues.xml
 
 # Markdown Navigator plugin
-.idea/**/markdown-navigator.xml
-.idea/**/markdown-navigator/
+example/.idea/**/markdown-navigator.xml
+example/.idea/**/markdown-navigator/
 
 ### Java ###
 # Compiled class file
