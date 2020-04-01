@@ -5,11 +5,11 @@ import java.util.Arrays;
 
 public class Grid {
 
-    ArrayList<Token>[] tokens = new ArrayList[7];
-    Color colorOne;
-    Color colorTwo;
-    Integer clickCount = 0;
-    JPanel gridPanel;
+    private ArrayList<Token>[] tokens = new ArrayList[7];
+    private Color colorOne;
+    private Color colorTwo;
+    private Integer clickCount = 0;
+    public JPanel gridPanel;
     private JButton firstColumnButton;
     private JButton secondColumnButton;
     private JButton thirdColumnButton;

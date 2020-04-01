@@ -3,12 +3,12 @@ import java.awt.*;
 
 public class Popup {
 
-    Component parentComponent;
-    String title;
-    String message;
-    String buttonLeftTitle;
-    String buttonRightTitle;
-    int choice = -1;
+    private Component parentComponent;
+    private String title;
+    private String message;
+    private String buttonLeftTitle;
+    private String buttonRightTitle;
+    private int choice = -1;
 
     enum Choice {
         UNKNOWN,

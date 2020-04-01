@@ -3,13 +3,13 @@ import java.time.LocalDateTime;
 
 public class Game {
 
-    LocalDateTime time = LocalDateTime.now();
+    private LocalDateTime time = LocalDateTime.now();
     // grid
-    Player playerOne;
-    Player playerTwo;
-    Boolean playerOneWon = false;
-    Boolean playerTwoWon = false;
-    Popup endPopup;
+    private Player playerOne;
+    private Player playerTwo;
+    private Boolean playerOneWon = false;
+    private Boolean playerTwoWon = false;
+    private Popup endPopup;
 
     public Game(String playerOneName, String playerTwoName) {
         playerOne = new Player(playerOneName, Color.ORANGE);
