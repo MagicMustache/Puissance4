@@ -12,6 +12,7 @@ public class IntroductionPanel {
     private JLabel titre;
     private JLabel titreJ1;
     private JLabel titreJ2;
+    private Game newGame;
 
 
     public IntroductionPanel(JPanel cards) {
@@ -19,17 +20,25 @@ public class IntroductionPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 CardLayout cl = (CardLayout) cards.getLayout();
+                Game game = new Game(getJoueur1TextField().toString(), getJoueur2TextField().toString());
+                Grid grid = new Grid(game);
+                cards.add(grid.gridPanel,"grid");
                 cl.show(cards, "grid");
             }
         });
     }
 
-    public JTextField getJoueur1TextField() {
-        return joueur1TextField;
+    public void setNewGame(Game game){
+        this.newGame = game;
     }
 
-    public JTextField getJoueur2TextField() {
-        return joueur2TextField;
+    public String getJoueur1TextField() {
+
+        return joueur1TextField.getText();
+    }
+
+    public String getJoueur2TextField() {
+        return joueur2TextField.getText();
     }
 
     public JLabel getTitre() {

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +9,6 @@ import java.util.Arrays;
 public class Grid {
 
     public JPanel gridPanel;
-    private JPanel cards;
     private JPanel buttonsPanel;
     private JPanel squaresPanel;
     private JLabel nextPlayerLabel;
@@ -21,14 +21,14 @@ public class Grid {
     private ArrayList<ArrayList<Token>> tokens = new ArrayList<ArrayList<Token>>();
     private int clicksCount = 0;
 
-    public Grid(JPanel cards) {
-        this.cards = cards;
+
+    public Grid(Game game){
+        this.game = game;
         resetGame();
         setupUI();
     }
 
     private void resetGame() {
-        game = new Game("Milo", "Marc"); // TODO Fetch names from IntroductionPanel
         tokens.clear();
         for (int i = 0; i < columnsCount; i++) {
             tokens.add(i, new ArrayList<Token>());
@@ -45,7 +45,8 @@ public class Grid {
         GridLayout gridLayout = new GridLayout(1, columnsCount);
         buttonsPanel.setLayout(gridLayout);
         for (int i = 0; i < buttons.length; i++) {
-            buttons[i] = new JButton(String.valueOf(i + 1));
+            //buttons[i] = new JButton(String.valueOf(i + 1));
+            buttons[i] = new BasicArrowButton(BasicArrowButton.SOUTH);
             int finalI = i;
             buttons[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -86,7 +87,8 @@ public class Grid {
     }
 
     private void updateGameStatus() {
-        nextPlayerLabel.setText("It's " + currentPlayer().name + " turn !");
+        System.out.print(currentPlayer().getName());
+        nextPlayerLabel.setText("It's " + currentPlayer().getName() + " turn !");
         // TODO Check if someone won (using `winner()`) and show a popup.
         if (gridIsFull()) {
             Popup popup = new Popup(gridPanel, "Done !", "The grid is full", "Replay", "OK");
