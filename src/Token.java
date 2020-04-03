@@ -2,10 +2,10 @@ import java.awt.*;
 
 public class Token {
 
-    Color color;
+    public Player player;
 
-    public Token(Color color) {
-        this.color = color;
+    public Token(Player player) {
+        this.player = player;
     }
 
 }
