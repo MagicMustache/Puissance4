@@ -22,13 +22,15 @@ public class Grid {
     private int clicksCount = 0;
 
 
-    public Grid(Game game){
-        this.game = game;
+    public Grid(String playerOneName, String playerTwoName) {
+        game = new Game(playerOneName, playerTwoName);
         resetGame();
         setupUI();
     }
 
     private void resetGame() {
+        // TODO Save current game to history if not null before creating the new one
+        game = new Game(game.playerOne.name, game.playerTwo.name);
         tokens.clear();
         for (int i = 0; i < columnsCount; i++) {
             tokens.add(i, new ArrayList<Token>());
@@ -45,7 +47,6 @@ public class Grid {
         GridLayout gridLayout = new GridLayout(1, columnsCount);
         buttonsPanel.setLayout(gridLayout);
         for (int i = 0; i < buttons.length; i++) {
-            //buttons[i] = new JButton(String.valueOf(i + 1));
             buttons[i] = new BasicArrowButton(BasicArrowButton.SOUTH);
             int finalI = i;
             buttons[i].addActionListener(new ActionListener() {
@@ -87,7 +88,6 @@ public class Grid {
     }
 
     private void updateGameStatus() {
-        System.out.print(currentPlayer().getName());
         nextPlayerLabel.setText("It's " + currentPlayer().getName() + " turn !");
         // TODO Check if someone won (using `winner()`) and show a popup.
         if (gridIsFull()) {
@@ -108,7 +108,7 @@ public class Grid {
     }
 
     private int winner() {
-        // Also set the winner state in Game object
+        // TODO Also set the winner state in Game object
         return -1;
     }
 

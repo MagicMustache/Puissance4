@@ -20,8 +20,7 @@ public class IntroductionPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 CardLayout cl = (CardLayout) cards.getLayout();
-                Game game = new Game(getJoueur1TextField().toString(), getJoueur2TextField().toString());
-                Grid grid = new Grid(game);
+                Grid grid = new Grid(getJoueur1TextField(), getJoueur2TextField());
                 cards.add(grid.gridPanel,"grid");
                 cl.show(cards, "grid");
             }
@@ -33,7 +32,6 @@ public class IntroductionPanel {
     }
 
     public String getJoueur1TextField() {
-
         return joueur1TextField.getText();
     }
 
