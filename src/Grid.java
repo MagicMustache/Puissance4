@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Grid {
 
     public JPanel gridPanel;
+    private JPanel cards;
     private JPanel buttonsPanel;
     private JPanel squaresPanel;
     private JLabel nextPlayerLabel;
@@ -18,18 +18,21 @@ public class Grid {
     private static int rowsCount = 6;
     private static int columnsCount = 7;
     private Game game;
+    private ArrayList<Game> games;
     private ArrayList<ArrayList<Token>> tokens = new ArrayList<ArrayList<Token>>();
     private int clicksCount = 0;
 
 
-    public Grid(String playerOneName, String playerTwoName) {
+    public Grid(JPanel cards, String playerOneName, String playerTwoName, ArrayList<Game> games) {
+        this.cards = cards;
         game = new Game(playerOneName, playerTwoName);
+        this.games = games;
         resetGame();
         setupUI();
     }
 
     private void resetGame() {
-        // TODO Save current game to history if not null before creating the new one
+        addGameToHistory();
         game = new Game(game.playerOne.name, game.playerTwo.name);
         tokens.clear();
         for (int i = 0; i < columnsCount; i++) {
@@ -90,11 +93,20 @@ public class Grid {
     private void updateGameStatus() {
         nextPlayerLabel.setText("It's " + currentPlayer().getName() + " turn !");
         // TODO Check if someone won (using `winner()`) and show a popup.
+        // TODO Show a popup if the grid is full but no one won.
+
+        // Start Debug
         if (gridIsFull()) {
             Popup popup = new Popup(gridPanel, "Done !", "The grid is full", "Replay", "OK");
             popup.show();
-            // TODO Show a popup if the grid is full but no one won.
+            if (popup.getChoice() == Popup.Choice.RIGHT) {
+                addGameToHistory();
+                switchToIntroductionPanel();
+            } else {
+                resetGame();
+            }
         }
+        // End Debug
     }
 
     private boolean gridIsFull() {
@@ -110,6 +122,18 @@ public class Grid {
     private int winner() {
         // TODO Also set the winner state in Game object
         return -1;
+    }
+
+    private void addGameToHistory() {
+        if (game.isDone()) {
+            games.add(game);
+        }
+    }
+
+    private void switchToIntroductionPanel() {
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cards.add(new Introduction(cards, games).introductionPanel, "introduction");
+        cl.show(cards, "introduction");
     }
 
 }
