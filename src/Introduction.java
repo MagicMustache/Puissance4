@@ -12,10 +12,11 @@ public class Introduction {
     private JTextField playerTwoTextField;
     private JButton playButton;
     private JButton historyButton;
+    private ArrayList<Game> games;
 
     public Introduction(JPanel cards, ArrayList<Game> games) {
         this.cards = cards;
-
+        this.games = games;
         refreshPlayersNames(games);
 
         playButton.addActionListener(new ActionListener() {
@@ -31,7 +32,8 @@ public class Introduction {
         historyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addAndSwitchToPanel(new History(cards, games).historyPanel, "history");
+                History hist = new History(cards, games);
+                addAndSwitchToPanel(hist.historyPanel, "history");
             }
         });
     }

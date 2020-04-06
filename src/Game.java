@@ -19,4 +19,15 @@ public class Game {
         return playerOneWon || playerTwoWon;
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
 }

@@ -74,7 +74,9 @@ public class Grid {
     }
 
     private void addToken(int column, Player player) {
-        if (tokens.get(column).size() == rowsCount) { return; }
+        if (tokens.get(column).size() == rowsCount) {
+            return;
+        }
         clicksCount += 1;
         tokens.get(column).add(new Token(player));
         int row = tokens.get(column).size() - 1;
@@ -103,6 +105,11 @@ public class Grid {
                 addGameToHistory();
                 switchToIntroductionPanel();
             } else {
+                for (int row = 0; row < rowsCount; row++) {
+                    for (int column = 0; column < columnsCount; column++) {
+                        squares[column][row].setBackground(Color.white);
+                    }
+                }
                 resetGame();
             }
         }
@@ -125,13 +132,15 @@ public class Grid {
     }
 
     private void addGameToHistory() {
-        if (game.isDone()) {
+        //TODO dont forget to remove commentary
+        //if (game.isDone()) {
             games.add(game);
-        }
+        //}
     }
 
     private void switchToIntroductionPanel() {
         CardLayout cl = (CardLayout) cards.getLayout();
+        System.out.println(games.size());
         cards.add(new Introduction(cards, games).introductionPanel, "introduction");
         cl.show(cards, "introduction");
     }

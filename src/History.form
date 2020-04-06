@@ -40,7 +40,10 @@
               </grid>
             </constraints>
             <properties>
+              <enabled value="true"/>
               <fillsViewportHeight value="false"/>
+              <showHorizontalLines value="false"/>
+              <showVerticalLines value="false"/>
             </properties>
           </component>
         </children>
