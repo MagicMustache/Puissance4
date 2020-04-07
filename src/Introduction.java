@@ -22,6 +22,7 @@ public class Introduction {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if (getPlayerOneTextField().isEmpty() || getPlayerTwoTextField().isEmpty()) { return; }
                 addAndSwitchToPanel(
                         new Grid(cards, getPlayerOneTextField(), getPlayerTwoTextField(), games).gridPanel,
                         "grid"

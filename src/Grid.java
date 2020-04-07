@@ -13,7 +13,7 @@ public class Grid {
     private JPanel squaresPanel;
     private JLabel nextPlayerLabel;
     private JButton[] buttons = new JButton[7];
-    private JPanel[][] squares = new JPanel[7][6];
+    private CirclePanel[][] squares = new CirclePanel[7][6];
 
     private static int rowsCount = 6;
     private static int columnsCount = 7;
@@ -27,8 +27,8 @@ public class Grid {
         this.cards = cards;
         game = new Game(playerOneName, playerTwoName);
         this.games = games;
-        resetGame();
         setupUI();
+        resetGame();
     }
 
     private void resetGame() {
@@ -37,6 +37,11 @@ public class Grid {
         tokens.clear();
         for (int i = 0; i < columnsCount; i++) {
             tokens.add(i, new ArrayList<Token>());
+        }
+        for (int row = 0; row < rowsCount; row++) {
+            for (int column = 0; column < columnsCount; column++) {
+                squares[column][row].removeCircle();
+            }
         }
         updateGameStatus();
     }
@@ -66,7 +71,7 @@ public class Grid {
         squaresPanel.setLayout(gridLayout);
         for (int row = 0; row < rowsCount; row++) {
             for (int column = 0; column < columnsCount; column++) {
-                squares[column][row] = new JPanel();
+                squares[column][row] = new CirclePanel();
                 squares[column][row].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 squaresPanel.add(squares[column][row]);
             }
@@ -80,7 +85,7 @@ public class Grid {
         clicksCount += 1;
         tokens.get(column).add(new Token(player));
         int row = tokens.get(column).size() - 1;
-        squares[column][rowsCount - row - 1].setBackground(tokens.get(column).get(row).player.color);
+        squares[column][rowsCount - row - 1].addCircle(tokens.get(column).get(row).player.color);
         updateGameStatus();
     }
 
@@ -105,11 +110,6 @@ public class Grid {
                 addGameToHistory();
                 switchToIntroductionPanel();
             } else {
-                for (int row = 0; row < rowsCount; row++) {
-                    for (int column = 0; column < columnsCount; column++) {
-                        squares[column][row].setBackground(Color.white);
-                    }
-                }
                 resetGame();
             }
         }
