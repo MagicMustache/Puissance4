@@ -42,8 +42,8 @@ public class Introduction {
     private void refreshPlayersNames(ArrayList<Game> games) {
         if (games.size() > 0) {
             Game latestGame = games.get(games.size() - 1);
-            setPlayerOneTextField(latestGame.playerOne.name);
-            setPlayerTwoTextField(latestGame.playerTwo.name);
+            setPlayerOneTextField(latestGame.getPlayerOne().name);
+            setPlayerTwoTextField(latestGame.getPlayerTwo().name);
         }
     }
 

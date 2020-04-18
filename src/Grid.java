@@ -32,8 +32,7 @@ public class Grid {
     }
 
     private void resetGame() {
-        addGameToHistory();
-        game = new Game(game.playerOne.name, game.playerTwo.name);
+        game = new Game(game.getPlayerOne().name, game.getPlayerTwo().name);
         tokens.clear();
         for (int i = 0; i < columnsCount; i++) {
             tokens.add(i, new ArrayList<Token>());
@@ -43,7 +42,7 @@ public class Grid {
                 squares[column][row].removeCircle();
             }
         }
-        updateGameStatus(8, game.playerOne);
+        updateGameStatus(-1, game.getPlayerOne());
     }
 
     private void setupUI() {
@@ -91,45 +90,34 @@ public class Grid {
 
     private Player currentPlayer() {
         if (clicksCount % 2 == 0) {
-            return game.playerOne;
+            return game.getPlayerOne();
         } else {
-            return game.playerTwo;
+            return game.getPlayerTwo();
         }
     }
 
-    private void updateGameStatus(int column, Player lastPlayer) {
-
-        //j'ai du ajouter la derniere colonne utilisée pour me simplifier la tache
-        //lastPlayer renvoie le dernier a avoir joué
+    private void updateGameStatus(int lastColumn, Player lastPlayer) {
         nextPlayerLabel.setText("It's " + currentPlayer().getName() + " turn !");
 
-        //si c'est le premier updateGameStatus on a pas encore de colonne utilisée, mais comme il en faut une pour appeler updateGameStatus je met 8, car ne correspond pas a une vrai colonne
-        //on check si c'est la premiere update ou pas grace a la colonne
-        if(column != 8) {
-            if (winner(lastPlayer.getName(), column, tokens.get(column).size()-1)) {
-                Popup popup = new Popup(gridPanel, "Congratulations !", lastPlayer.getName()+" has won !!", "Replay", "OK");
-                popup.show();
-                if (popup.getChoice() == Popup.Choice.RIGHT) {
-                    addGameToHistory();
-                    switchToIntroductionPanel();
-                } else {
-                    resetGame();
-                }
-            }
-        }
+        if(lastColumn == -1) { return; }
 
-        // Start Debug
-        if (gridIsFull()) {
-            Popup popup = new Popup(gridPanel, "No one won :(", "The grid is full", "Replay", "OK");
+        if (winner(lastPlayer, lastColumn, tokens.get(lastColumn).size() - 1)) {
+            Popup popup = new Popup(gridPanel, "Bravo !", lastPlayer.getName()+" a gagné !!", "Rejouer", "Terminer");
             popup.show();
             if (popup.getChoice() == Popup.Choice.RIGHT) {
-                addGameToHistory();
+                switchToIntroductionPanel();
+            } else {
+                resetGame();
+            }
+        } else if (gridIsFull()) {
+            Popup popup = new Popup(gridPanel, "Personne n'a gagné... :(", "Vous devez remettre ça !", "Rejouer", "Terminer");
+            popup.show();
+            if (popup.getChoice() == Popup.Choice.RIGHT) {
                 switchToIntroductionPanel();
             } else {
                 resetGame();
             }
         }
-        // End Debug
     }
 
     private boolean gridIsFull() {
@@ -139,56 +127,58 @@ public class Grid {
             full = tokens.get(columnIndex).size() == rowsCount;
             columnIndex += 1;
         }
+
+        if (full) {
+            addGameToHistory();
+        }
+
         return full;
     }
 
-    private boolean winner(String name, int column, int row) {
+    private boolean winner(Player player, int column, int row) {
         // TODO Also set the winner state in Game object
         //TODO add diagonal check
         int horCount = 0;
         int verCount = 0;
 
         //horizontal check
-        for(int i = 0;i<columnsCount;i++){
-            if (tokens.get(i).size() != 0 && !(tokens.get(i).size()-1 < row)){
-                if (tokens.get(i).get(row).getPlayer().getName() == name) {
+        for (int i = 0; i < columnsCount; i++) {
+            if (tokens.get(i).size() != 0 && !(tokens.get(i).size() - 1 < row)) {
+                if (tokens.get(i).get(row).getPlayer() == player) {
                     horCount++;
                     System.out.println("horcount : "+horCount);
-                }
-                else{
+                } else {
                     horCount = 0;
                 }
             }
         }
 
         //vertical check
-        for(int i = 0;i<tokens.get(column).size();i++){
-            if(tokens.get(column) != null){
-                if(tokens.get(column).get(i) != null) {
-                    if (tokens.get(column).get(i).getPlayer().getName() == name) {
+        ArrayList<Token> currentColumn = tokens.get(column);
+        if (currentColumn != null) {
+            for (Token token : currentColumn) {
+                if (token != null) {
+                    if (token.getPlayer() == player) {
                         verCount++;
-                        System.out.println("vercount : "+verCount);
+                        System.out.println("vercount : " + verCount);
+                    } else {
+                        verCount = 0;
                     }
-                }
-                else{
-                    verCount = 0;
                 }
             }
         }
 
-        if(horCount == 4||verCount == 4){
+        if (horCount == 4 || verCount == 4) {
+            game.setWinner(player);
+            addGameToHistory();
             return true;
         }
-        else{
-            return false;
-        }
+
+        return false;
     }
 
     private void addGameToHistory() {
-        //TODO dont forget to remove commentary
-        //if (game.isDone()) {
-            games.add(game);
-        //}
+        games.add(game);
     }
 
     private void switchToIntroductionPanel() {

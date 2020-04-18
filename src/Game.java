@@ -4,19 +4,13 @@ import java.time.LocalDateTime;
 public class Game {
 
     public LocalDateTime time = LocalDateTime.now();
-    public Player playerOne;
-    public Player playerTwo;
-
-    private Boolean playerOneWon = false;
-    private Boolean playerTwoWon = false;
+    private Player playerOne;
+    private Player playerTwo;
+    private Player winner = null;
 
     public Game(String playerOneName, String playerTwoName) {
         playerOne = new Player(playerOneName, Color.ORANGE);
         playerTwo = new Player(playerTwoName, Color.RED);
-    }
-
-    public Boolean isDone() {
-        return playerOneWon || playerTwoWon;
     }
 
     public LocalDateTime getTime() {
@@ -29,5 +23,9 @@ public class Game {
 
     public Player getPlayerTwo() {
         return playerTwo;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }
