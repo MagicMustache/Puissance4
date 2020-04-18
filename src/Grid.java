@@ -168,10 +168,44 @@ public class Grid {
             }
         }
 
+        // WIP diagonal check (pour le moment compte uniquement le nombre de tokens dans la diagonale dirigée vers bas/gauche du token en cours)
+        // Trouver une façon cool de check les 4 cotés (autre que copier-coller ce code lol)
+        // Ensuite il suffit d'additionner les 2 cotés opposés qui sont sur la même pente et ajouter 1 pour connaître le nombre sur une diago
+        int count = 0;
+        boolean previousIsGood = true;
+        int x = row - 1;
+        int y = column - 1;
+        do {
+            if (tokenIsPresent(player, x, y)) {
+                previousIsGood = true;
+                count += 1;
+            } else {
+                previousIsGood = false;
+            }
+            x -= 1;
+            y -= 1;
+        } while (previousIsGood && count <= 4);
+        System.out.println(count);
+
         if (horCount == 4 || verCount == 4) {
             game.setWinner(player);
             addGameToHistory();
             return true;
+        }
+
+        return false;
+    }
+
+    private boolean tokenIsPresent(Player player, int column, int row) {
+        if (column < 0 || row < 0 || column >= tokens.size()) {
+            return false;
+        }
+
+        ArrayList<Token> currentColumn = tokens.get(column);
+        if (currentColumn != null) {
+            if (row < currentColumn.size()) {
+                return currentColumn.get(row).player == player;
+            }
         }
 
         return false;
