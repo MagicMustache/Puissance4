@@ -17,12 +17,11 @@ public class History {
     private JButton backButton;
     private JTable table;
     private ArrayList<Game> games;
-    private String[] colNames = new String[] {"Date", "PlayerOne", "PlayerTwo"};
+    private String[] colNames = new String[] {"Date", "Joueur 1", "Joueur 2"};
 
     public History(JPanel cards, ArrayList<Game> games) {
         this.cards = cards;
         this.games = games;
-        System.out.println(games.size());
         setupTable();
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -34,15 +33,24 @@ public class History {
 
     private void setupTable() {
         //creating matrix with data from games and column names
-        String[][] rowData = new String[games.size()][colNames.length];
+        table.setCellSelectionEnabled(false);
+        table.setColumnSelectionAllowed(false);
+        table.setDragEnabled(false);
+        table.setRowSelectionAllowed(false);
+        String[][] rowData = new String[games.size() + 1][colNames.length];
+        rowData[0] = colNames; //TODO display column names on table in the correct way
         for (int i = 0; i<games.size();i++){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String strDate = games.get(i).getTime().format(formatter);
-            String[] values = new String[]{strDate, games.get(i).getPlayerOne().getName(), games.get(i).getPlayerTwo().getName()};
-            rowData[i] = values;
+            Game game = games.get(i);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            String strDate = game.getTime().format(formatter);
+            String[] values = new String[]{
+                    strDate,
+                    game.getPlayerOne().getName() + (game.getWinner() == game.getPlayerOne() ? " (gagnant)" : ""),
+                    game.getPlayerTwo().getName() + (game.getWinner() == game.getPlayerTwo() ? " (gagnant)" : ""),
+            };
+            rowData[i + 1] = values;
         }
         //recreating table model with data and column names (only way i found)
-        //TODO display column names on table
         table.setModel(new DefaultTableModel(rowData, colNames));
     }
 
