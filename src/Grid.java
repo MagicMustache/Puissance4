@@ -32,7 +32,7 @@ public class Grid {
     }
 
     private void resetGame() {
-        game = new Game(game.getPlayerOne().name, game.getPlayerTwo().name);
+        game = new Game(game.getPlayerOne().getName(), game.getPlayerTwo().getName());
         tokens.clear();
         for (int i = 0; i < columnsCount; i++) {
             tokens.add(i, new ArrayList<Token>());
@@ -84,7 +84,7 @@ public class Grid {
         clicksCount += 1;
         tokens.get(column).add(new Token(player));
         int row = tokens.get(column).size() - 1;
-        squares[column][rowsCount - row - 1].addCircle(tokens.get(column).get(row).player.color);
+        squares[column][rowsCount - row - 1].addCircle(tokens.get(column).get(row).getPlayer().getColor());
         updateGameStatus(column, player);
     }
 
@@ -207,7 +207,7 @@ public class Grid {
         ArrayList<Token> currentColumn = tokens.get(column);
         if (currentColumn != null) {
             if (row < currentColumn.size()) {
-                return currentColumn.get(row).player == player;
+                return currentColumn.get(row).getPlayer() == player;
             }
         }
         return false;

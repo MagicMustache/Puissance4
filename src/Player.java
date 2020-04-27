@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Player {
 
-    String name;
-    Color color;
+    private String name;
+    private Color color;
 
     public Player(String name, Color color) {
         this.name = name;
@@ -12,5 +12,9 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

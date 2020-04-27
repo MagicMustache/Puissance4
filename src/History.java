@@ -26,7 +26,7 @@ public class History {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchToPanel("introduction");
+                switchToIntroductionPanel("introduction");
             }
         });
     }
@@ -53,7 +53,7 @@ public class History {
         table.setRowSelectionAllowed(false);
     }
 
-    private void switchToPanel(String name) {
+    private void switchToIntroductionPanel(String name) {
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.show(cards, name);
     }
