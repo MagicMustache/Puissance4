@@ -45,6 +45,9 @@
               <showHorizontalLines value="false"/>
               <showVerticalLines value="false"/>
             </properties>
+            <clientProperties>
+              <Table.isFileList class="java.lang.Boolean" value="true"/>
+            </clientProperties>
           </component>
         </children>
       </grid>

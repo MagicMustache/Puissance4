@@ -32,26 +32,25 @@ public class History {
     }
 
     private void setupTable() {
-        //creating matrix with data from games and column names
-        table.setCellSelectionEnabled(false);
-        table.setColumnSelectionAllowed(false);
-        table.setDragEnabled(false);
-        table.setRowSelectionAllowed(false);
         String[][] rowData = new String[games.size() + 1][colNames.length];
-        rowData[0] = colNames; //TODO display column names on table in the correct way
-        for (int i = 0; i<games.size();i++){
+        rowData[0] = colNames;
+        for (int i = 0; i<games.size();i++) {
             Game game = games.get(i);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             String strDate = game.getTime().format(formatter);
-            String[] values = new String[]{
+            String[] values = new String[] {
                     strDate,
                     game.getPlayerOne().getName() + (game.getWinner() == game.getPlayerOne() ? " (gagnant)" : ""),
                     game.getPlayerTwo().getName() + (game.getWinner() == game.getPlayerTwo() ? " (gagnant)" : ""),
             };
             rowData[i + 1] = values;
         }
-        //recreating table model with data and column names (only way i found)
         table.setModel(new DefaultTableModel(rowData, colNames));
+
+        table.setCellSelectionEnabled(false);
+        table.setColumnSelectionAllowed(false);
+        table.setDragEnabled(false);
+        table.setRowSelectionAllowed(false);
     }
 
     private void switchToPanel(String name) {

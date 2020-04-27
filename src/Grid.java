@@ -136,31 +136,26 @@ public class Grid {
     }
 
     private boolean winner(Player player, int column, int row) {
-        // TODO Also set the winner state in Game object
-        //TODO add diagonal check
+        // Horizontal check
         int horCount = 0;
-        int verCount = 0;
-
-        //horizontal check
         for (int i = 0; i < columnsCount; i++) {
             if (tokens.get(i).size() != 0 && !(tokens.get(i).size() - 1 < row)) {
                 if (tokens.get(i).get(row).getPlayer() == player) {
                     horCount++;
-                    System.out.println("horcount : "+horCount);
                 } else {
                     horCount = 0;
                 }
             }
         }
 
-        //vertical check
+        // Vertical check
+        int verCount = 0;
         ArrayList<Token> currentColumn = tokens.get(column);
         if (currentColumn != null) {
             for (Token token : currentColumn) {
                 if (token != null) {
                     if (token.getPlayer() == player) {
                         verCount++;
-                        System.out.println("vercount : " + verCount);
                     } else {
                         verCount = 0;
                     }
@@ -168,13 +163,29 @@ public class Grid {
             }
         }
 
-        // WIP diagonal check (pour le moment compte uniquement le nombre de tokens dans la diagonale dirigée vers bas/gauche du token en cours)
-        // Trouver une façon cool de check les 4 cotés (autre que copier-coller ce code lol)
-        // Ensuite il suffit d'additionner les 2 cotés opposés qui sont sur la même pente et ajouter 1 pour connaître le nombre sur une diago
+        // Diagonals check
+        int diagonalOneCount =
+                checkDiagonal(1, 1, column, row, player) +
+                        checkDiagonal(-1, -1, column, row, player) + 1;
+        int diagonalTwoCount =
+                checkDiagonal(-1, 1, column, row, player) +
+                        checkDiagonal(1, -1, column, row, player) + 1;
+
+        // Total check
+        if (horCount == 4 || verCount == 4 || diagonalOneCount == 4 || diagonalTwoCount == 4) {
+            game.setWinner(player);
+            addGameToHistory();
+            return true;
+        }
+
+        return false;
+    }
+
+    private int checkDiagonal(int xDirection, int yDirection, int column, int row, Player player) {
         int count = 0;
         boolean previousIsGood = true;
-        int x = row - 1;
-        int y = column - 1;
+        int x = column + xDirection;
+        int y = row + yDirection;
         do {
             if (tokenIsPresent(player, x, y)) {
                 previousIsGood = true;
@@ -182,18 +193,10 @@ public class Grid {
             } else {
                 previousIsGood = false;
             }
-            x -= 1;
-            y -= 1;
-        } while (previousIsGood && count <= 4);
-        System.out.println(count);
-
-        if (horCount == 4 || verCount == 4) {
-            game.setWinner(player);
-            addGameToHistory();
-            return true;
-        }
-
-        return false;
+            x += xDirection;
+            y += yDirection;
+        } while (previousIsGood);
+        return count;
     }
 
     private boolean tokenIsPresent(Player player, int column, int row) {
@@ -207,7 +210,6 @@ public class Grid {
                 return currentColumn.get(row).player == player;
             }
         }
-
         return false;
     }
 
