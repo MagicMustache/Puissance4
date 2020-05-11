@@ -215,12 +215,15 @@ public class Grid {
 
     private void addGameToHistory() {
         games.add(game);
+        PersistanceHandler ph = new PersistanceHandler();
+        ph.writePersistancce(games);
+
     }
 
     private void switchToIntroductionPanel() {
         CardLayout cl = (CardLayout) cards.getLayout();
         System.out.println(games.size());
-        cards.add(new Introduction(cards, games).introductionPanel, "introduction");
+        cards.add(new Introduction(cards).introductionPanel, "introduction");
         cl.show(cards, "introduction");
     }
 

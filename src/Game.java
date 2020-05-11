@@ -1,7 +1,8 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Game {
+public class Game implements Serializable {
 
     public LocalDateTime time = LocalDateTime.now();
     private Player playerOne;

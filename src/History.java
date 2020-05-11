@@ -22,6 +22,7 @@ public class History {
     public History(JPanel cards, ArrayList<Game> games) {
         this.cards = cards;
         this.games = games;
+
         setupTable();
         backButton.addActionListener(new ActionListener() {
             @Override

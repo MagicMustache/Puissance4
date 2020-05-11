@@ -29,7 +29,7 @@ public class Main {
 
         JPanel cards = new JPanel();
         cards.setLayout(new CardLayout());
-        Introduction introduction = new Introduction(cards, new ArrayList<Game>());
+        Introduction introduction = new Introduction(cards);
         cards.add(introduction.introductionPanel, "introduction");
         frame.add(cards);
         frame.setVisible(true);

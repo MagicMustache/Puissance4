@@ -14,10 +14,11 @@ public class Introduction {
     private JButton historyButton;
     private ArrayList<Game> games;
 
-    public Introduction(JPanel cards, ArrayList<Game> games) {
+    public Introduction(JPanel cards) {
+        PersistanceHandler ph = new PersistanceHandler();
         this.cards = cards;
-        this.games = games;
-        refreshPlayersNames(games);
+        this.games = ph.readPersistance();
+        refreshPlayersNames(this.games);
 
         playButton.addActionListener(new ActionListener() {
             @Override
