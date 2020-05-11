@@ -11,6 +11,7 @@ public class Introduction {
     private JTextField playerOneTextField;
     private JTextField playerTwoTextField;
     private JButton playButton;
+    private JButton rulesButton;
     private JButton historyButton;
     private ArrayList<Game> games;
 
@@ -28,6 +29,24 @@ public class Introduction {
                         new Grid(cards, getPlayerOneTextField(), getPlayerTwoTextField(), games).gridPanel,
                         "grid"
                 );
+            }
+        });
+
+        rulesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object[] options = {"OK"};
+                JOptionPane.showOptionDialog(
+                        null,
+                        "Les règles sont très simples :" +
+                                "\nLe premier à aligner quatre de ses jetons verticalement, horizontalement ou diagonalement a gagné.\n" +
+                                "Que le meilleur gagne !",
+                        "Règles du jeu",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
             }
         });
 
